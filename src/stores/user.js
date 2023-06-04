@@ -21,6 +21,7 @@ export default defineStore('user', {
       })
 
       this.isLoggedIn = true
+      window.location.reload()
     },
     async authentication(values) {
       await auth.signInWithEmailAndPassword(values.email, values.password)

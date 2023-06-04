@@ -148,8 +148,6 @@ export default {
       }
 
       this.reg_alert_msg = 'Please wait! Your account is being created.'
-
-      window.location.reload()
     }
   }
 }
