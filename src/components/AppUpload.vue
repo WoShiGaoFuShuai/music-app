@@ -19,6 +19,9 @@
       >
         <h5>Drop your files here</h5>
       </div>
+
+      <input type="file" multiple @change="upload($event)" />
+
       <hr class="my-6" />
       <!-- Progess Bars -->
       <div class="mb-4" v-for="(upload, i) in uploads" :key="i">
@@ -53,7 +56,7 @@ export default {
   },
   methods: {
     upload($event) {
-      const files = [...$event.dataTransfer.files]
+      const files = $event.dataTransfer ? [...$event.dataTransfer.files] : [...$event.target.files]
 
       files.forEach((file) => {
         console.log(file)
@@ -98,7 +101,7 @@ export default {
             }
 
             console.log(task.snapshot.ref)
-            song.url = await task.snapshot.ref.getDownloadUrl()
+            song.url = await task.snapshot.ref.getDownloadURL()
             await songsCollection.add(song)
 
             this.uploads[uploadIndex].variant = 'bg-green-400'
