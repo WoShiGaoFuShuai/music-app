@@ -108,5 +108,9 @@ export default {
   components: {
     AppUpload
   }
+  // beforeRouteLeave(to, from, next) {
+  //   this.$refs.upload.cancelUploads()
+  //   next()
+  // }
 }
 </script>
