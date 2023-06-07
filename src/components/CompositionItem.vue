@@ -31,6 +31,7 @@
             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
             placeholder="Enter Song Title"
             name="modified_name"
+            @input="changeUnsavedFlag(true)"
           />
           <ErrorMessage class="text-red-600" name="modified_name" />
         </div>
@@ -41,6 +42,7 @@
             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
             placeholder="Enter Genre"
             name="genre"
+            @input="changeUnsavedFlag(true)"
           />
           <ErrorMessage class="text-red-600" name="genre" />
         </div>
@@ -85,6 +87,9 @@ export default {
     removeSong: {
       type: Function,
       required: true
+    },
+    changeUnsavedFlag: {
+      type: Function
     }
   },
   data() {
@@ -117,6 +122,7 @@ export default {
       }
 
       this.updateSong(this.index, values)
+      this.changeUnsavedFlag(false)
 
       this.in_submission = false
       this.show_alert = true
