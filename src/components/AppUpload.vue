@@ -48,6 +48,12 @@ import { storage, auth, songsCollection } from '@/includes/firebase'
 
 export default {
   name: 'Upload',
+  props: {
+    addSong: {
+      type: Function,
+      required: true
+    }
+  },
   data() {
     return {
       is_dragover: false,
@@ -96,13 +102,18 @@ export default {
               display_name: auth.currentUser.displayName,
               modified_name: task.snapshot.ref.name,
               original_name: task.snapshot.ref.name,
-              genge: '',
+              genre: '',
               comment_count: 0
             }
 
-            console.log(task.snapshot.ref)
+            // console.log(task.snapshot.ref)
             song.url = await task.snapshot.ref.getDownloadURL()
-            await songsCollection.add(song)
+
+            const songRef = await songsCollection.add(song)
+            const songSnapshot = await songRef.get()
+            console.log(songRef)
+            console.log(songSnapshot)
+            this.addSong(songSnapshot)
 
             this.uploads[uploadIndex].variant = 'bg-green-400'
             this.uploads[uploadIndex].icon = 'fas fa-check'
