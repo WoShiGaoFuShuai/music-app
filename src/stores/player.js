@@ -50,6 +50,19 @@ export default defineStore('player', {
       } else {
         this.sound.play()
       }
+    },
+    updateSeek(event) {
+      if (!this.sound.playing) {
+        return
+      }
+
+      const { x, width } = event.currentTarget.getBoundingClientRect()
+      const clientX = event.clientX - x
+      const percentage = clientX / width
+      const seconds = this.sound.duration() * percentage
+
+      this.sound.seek(seconds)
+      this.sound.on('seek', () => requestAnimationFrame(this.progress))
     }
   },
   getters: {
